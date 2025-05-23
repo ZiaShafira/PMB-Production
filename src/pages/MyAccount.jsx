@@ -46,7 +46,7 @@ const MyAccount = () => {
     body: JSON.stringify({ password: newPassword })
   })
     .then((res) => {
-      if (!res.ok) throw
+      if (!res.ok) throw new Error("Gagal reset password");
       return res.json();
     })
     .then(() => {
