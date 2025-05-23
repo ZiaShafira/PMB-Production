@@ -19,6 +19,7 @@ const FAQ = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [faqToDelete, setFaqToDelete] = useState(null);
   const [toast, setToast] = useState({ show: false, type: '', message: '' });
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
 
@@ -80,7 +81,6 @@ const FAQ = () => {
   const handleSubmit = async () => {
   const { question, answer, category } = formData;
 
-  // Validasi
   if (!question.trim()) {
     showToast("danger", "Pertanyaan tidak boleh kosong.");
     return;
@@ -96,6 +96,8 @@ const FAQ = () => {
     return;
   }
 
+  setSubmitting(true); // 🔒 Disable tombol simpan
+
   try {
     if (isEdit) {
       await axios.put(`${API_BASE}/faq/${formData.id}`, formData);
@@ -108,6 +110,8 @@ const FAQ = () => {
   } catch (error) {
     console.error("Gagal simpan FAQ:", error);
     showToast("danger", "Gagal menyimpan FAQ.");
+  } finally {
+    setSubmitting(false); // 🔓 Enable kembali
   }
 };
 
@@ -117,12 +121,14 @@ const confirmDelete = (faqId) => {
 };
 
 const executeDelete = async () => {
+  setSubmitting(true);
   try {
     await axios.delete(`${API_BASE}/faq/${faqToDelete}`);
     await fetchFaqs();
   } catch (error) {
     console.error('Gagal hapus FAQ:', error);
   } finally {
+    setSubmitting(false);
     setShowDeleteModal(false);
     setFaqToDelete(null);
   }
@@ -285,7 +291,7 @@ const executeDelete = async () => {
                     <button className="btn btn-secondary" onClick={handleCloseModal}>
                       Batal
                     </button>
-                    <button className="btn btn-primary" onClick={handleSubmit}>
+                    <button className="btn btn-primary" onClick={handleSubmit} disabled={submitting}>
                       Simpan
                     </button>
                   </div>
@@ -319,7 +325,7 @@ const executeDelete = async () => {
                     >
                       Batal
                     </button>
-                    <button className="btn btn-danger" onClick={executeDelete}>
+                    <button className="btn btn-danger" onClick={executeDelete} disabled={submitting}>
                       Hapus
                     </button>
                   </div>

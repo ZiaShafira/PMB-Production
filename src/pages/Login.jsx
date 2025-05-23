@@ -9,11 +9,14 @@ const Login = () => {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const API_BASE = import.meta.env.VITE_API_URL;
 
   // Dummy login role check
   const handleLogin = (e) => {
   e.preventDefault();
+  setLoading(true);
+  setError('');
 
   fetch(`${API_BASE}/login`, {
     method: "POST",
@@ -31,10 +34,13 @@ const Login = () => {
       return data;
     })
     .then(() => {
-      navigate("/dashboard"); // ✅ langsung redirect tanpa cek role
+      navigate("/dashboard");
     })
     .catch((err) => {
       setError(err.message);
+    })
+    .finally(() => {
+      setLoading(false);
     });
 };
 
@@ -89,8 +95,8 @@ const Login = () => {
           </div>
 
           <div className="d-grid">
-            <button type="submit" className="btn btn-dark fw-semibold">
-              Login
+            <button type="submit" className="btn btn-dark fw-semibold" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
             </button>
           </div>
         </form>

@@ -79,7 +79,7 @@ const MainUser = () => {
                 <p className="text-center text-muted">Belum ada FAQ yang tersedia.</p>
                 ) : (
                 <div className="accordion" id="faqAccordion" style={{ marginTop: '150px' }}>
-                    {faqs.map((faq, index) => (
+                    {faqs.slice(0, 5).map((faq, index) => (
                     <div className="accordion-item" key={faq.id}>
                         <h2 className="accordion-header" id={`heading${faq.id}`}>
                         <button

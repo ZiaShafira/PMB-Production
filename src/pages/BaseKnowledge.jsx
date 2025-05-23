@@ -11,6 +11,8 @@ const BaseKnowledge = () => {
   const [toast, setToast] = useState({ show: false, type: '', message: '' });
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [fileToDelete, setFileToDelete] = useState(null);
+  const [deleting, setDeleting] = useState(false);
+
   const API_BASE = import.meta.env.VITE_API_URL;
 
   const fetchFiles = async () => {
@@ -63,20 +65,23 @@ const BaseKnowledge = () => {
   };
 
   const handleDelete = async () => {
-    if (!fileToDelete) return;
+  if (!fileToDelete) return;
+  setDeleting(true); // 🔒 disable tombol
 
-    try {
-      const res = await axios.delete(`${API_BASE}/delete-file/${encodeURIComponent(fileToDelete)}`);
-      showToast("success", res.data.message);
-      fetchFiles();
-    } catch (err) {
-      console.error('Gagal menghapus file:', err);
-      showToast("danger", "Gagal menghapus file.");
-    }
+  try {
+    const res = await axios.delete(`${API_BASE}/delete-file/${encodeURIComponent(fileToDelete)}`);
+    showToast("success", res.data.message);
+    fetchFiles();
+  } catch (err) {
+    console.error('Gagal menghapus file:', err);
+    showToast("danger", "Gagal menghapus file.");
+  }
 
-    setShowDeleteModal(false);
-    setFileToDelete(null);
-  };
+  setShowDeleteModal(false);
+  setFileToDelete(null);
+  setDeleting(false); // 🔓 enable kembali
+};
+
 
   const showToast = (type, message) => {
     setToast({ show: true, type, message });
@@ -212,8 +217,9 @@ const BaseKnowledge = () => {
                     type="button"
                     className="btn btn-danger"
                     onClick={handleDelete}
+                    disabled={deleting}
                   >
-                    Hapus
+                    {deleting ? "Menghapus..." : "Hapus"}
                   </button>
                 </div>
               </div>
