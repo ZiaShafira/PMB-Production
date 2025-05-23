@@ -24,7 +24,7 @@ const NavbarFaq = () => {
             <Link to="/dashboard" className="text-decoration-none text-dark">
               Home
             </Link>
-            <Link to="/faq-final" className="text-decoration-none text-dark">
+            <Link to="/faq" className="text-decoration-none text-dark">
               FAQ
             </Link>
             <Link to="/history" className="text-decoration-none text-dark">
