@@ -20,7 +20,7 @@ const ResetPassword = () => {
     setError('');
     setLoading(true);
 
-    fetch(`${API_BASE}/users/reset-password-token`, {
+    fetch(`${API_BASE}/users/reset-password-email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token, password })
