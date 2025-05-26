@@ -12,6 +12,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const API_BASE = import.meta.env.VITE_API_URL;
 
+
   // Dummy login role check
   const handleLogin = (e) => {
   e.preventDefault();
@@ -19,29 +20,32 @@ const Login = () => {
   setError('');
 
   fetch(`${API_BASE}/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    credentials: "include",
-    body: JSON.stringify({ username, password })
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ username, password })
+})
+  .then(async (res) => {
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.error || "Login gagal");
+    }
+
+    // ✅ Simpan token ke localStorage
+    localStorage.setItem("token", data.token);
+
+    return data;
   })
-    .then(async (res) => {
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Login gagal");
-      }
-      return data;
-    })
-    .then(() => {
-      navigate("/dashboard");
-    })
-    .catch((err) => {
-      setError(err.message);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
+  .then(() => {
+    navigate("/dashboard");
+  })
+  .catch((err) => {
+    setError(err.message);
+  })
+  .finally(() => {
+    setLoading(false);
+  });
 };
 
 
