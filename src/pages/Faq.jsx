@@ -200,6 +200,7 @@ const FAQ = () => {
                 <option value="RPL">RPL</option>
                 <option value="PSDKU">PSDKU</option>
                 <option value="Pascasarjana">Pascasarjana</option>
+                <option value="Kerjasama">Kerjasama</option>
                 <option value="WNBK">WNBK</option>
                 <option value="Umum">Umum</option>
               </select>

@@ -85,16 +85,13 @@ const MainUser = () => {
                 onChange={(e) => setFilterCategory(e.target.value)}
                 >
                 <option value="">Semua Kategori</option>
-                <option value="Jadwal">Jadwal</option>
-                <option value="Biaya">Biaya</option>
-                <option value="Syarat">Syarat</option>
-                <option value="Jalur">Jalur</option>
                 <option value="SNBP">SNBP</option>
                 <option value="SNBT">SNBT</option>
                 <option value="Kerjasama">Kerjasama</option>
                 <option value="Mandiri Prestasi">Mandiri Prestasi</option>
                 <option value="PSDKU">PSDKU</option>
                 <option value="Pascasarjana">Pascasarjana</option>
+                <option value="Kerjasama">Kerjasama</option>
                 <option value="RPL">RPL</option>
                 <option value="WNBK">WNBK</option>
                 <option value="Umum">Umum</option>
