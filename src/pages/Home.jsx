@@ -87,7 +87,7 @@ const MainUser = () => {
                 <option value="">Semua Kategori</option>
                 <option value="SNBP">SNBP</option>
                 <option value="SNBT">SNBT</option>
-                <option value="Kerjasama">Kerjasama</option>
+                <option value="Ujian Mandiri">Ujian Mandiri</option>
                 <option value="Mandiri Prestasi">Mandiri Prestasi</option>
                 <option value="PSDKU">PSDKU</option>
                 <option value="Pascasarjana">Pascasarjana</option>
