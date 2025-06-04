@@ -22,13 +22,21 @@ const Dashboard = () => {
   useEffect(() => {
     // 🔄 Fetch data dari API backend Flask kamu
     fetch(`${API_BASE}/dashboard-stats`)
-      .then((res) => res.json())
-      .then((data) => {
-        setTotalQuestions(data.total_questions_today || 0);
-        setTotalFiles(data.total_files_uploaded || 0);
-        setTotalIndexedQA(data.total_qa_indexed || 0);
-        setDataLine(data.questions_per_day || []);
-        setDataPie(data.top_categories || []);
+      .then((res) => res.text())
+      .then((text) => {
+        console.log("📥 RAW DASHBOARD RESPONSE:", text);
+    
+        try {
+          const data = JSON.parse(text);
+          console.log("✅ Parsed JSON:", data);
+          setTotalQuestions(data.total_questions_today || 0);
+          setTotalFiles(data.total_files_uploaded || 0);
+          setTotalIndexedQA(data.total_qa_indexed || 0);
+          setDataLine(data.questions_per_day || []);
+          setDataPie(data.top_categories || []);
+        } catch (err) {
+          console.error("❌ Gagal parse JSON:", err);
+        }
       })
       .catch((err) => console.error("Gagal ambil data dashboard:", err));
   }, []);
