@@ -17,6 +17,7 @@ const Dashboard = () => {
   const [dataLine, setDataLine] = useState([]);
   const [dataPie, setDataPie] = useState([]);
   const API_BASE = import.meta.env.VITE_API_URL;
+  console.log("✅ API_BASE =", import.meta.env.VITE_API_URL);
 
   useEffect(() => {
     // 🔄 Fetch data dari API backend Flask kamu
